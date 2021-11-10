@@ -1,2 +1,2 @@
-# hotel-engine
+# Hotel Engine
 Code challenge  
