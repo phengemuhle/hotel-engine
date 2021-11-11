@@ -1,2 +1,0 @@
-# Hotel Engine
-Code challenge  
