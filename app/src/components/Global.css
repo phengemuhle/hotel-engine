@@ -8,13 +8,13 @@
     padding: 1rem;
     justify-content: center;
     border: 1px solid black;
-    background: white;
+    background: lightgray;
     display: inline-block; 
     font-size: 2em; 
     font-weight: bold;
     position: relative;
     outline: none;
-    /* text-decoration: none; */
+    text-decoration: none;
     border-radius: 4rem;
     cursor: pointer;
     position: relative;

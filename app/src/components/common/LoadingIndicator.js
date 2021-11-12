@@ -2,11 +2,9 @@ import React from "react";
 
 const LoadingIndicator = (props) => {
   return (
-    <div style={{ ...styles.mainContainer }}>
       <div style={{ ...styles.textCont }}>
         <p>Loading...</p>
       </div>
-    </div>
   );
 };
 
@@ -27,7 +25,7 @@ const styles = {
     paddingLeft: "2rem",
     paddingRight: "2rem",
     fontSize: "3rem",
-    borderRadius: "30%",
+    borderRadius: "4rem",
     backgroundColor: "white",
     border: "3px solid blue",
   },
