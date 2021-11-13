@@ -7,10 +7,10 @@
 .shared{
     padding: 1rem;
     justify-content: center;
-    border: 1px solid black;
-    background: lightgray;
+    border: .1rem solid darkblue;
+    background: whitesmoke;
     display: inline-block; 
-    font-size: 2em; 
+    font-size: 2rem; 
     font-weight: bold;
     position: relative;
     outline: none;
@@ -22,8 +22,8 @@
     overflow: hidden;
     z-index: 100;
     transition: all .5s;
-    height: 5rem;
-    width: 12rem;
+    height: 30%;
+    width: 60%;
     margin: 2rem;
    }
    
