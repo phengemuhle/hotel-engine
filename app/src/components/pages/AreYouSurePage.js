@@ -1,6 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import "./Global.css";
+import GreenButton from "../common/GreenButton";
+import "../Global.css";
 
 const AreYouSurePage = () => {
   return (
@@ -8,22 +8,12 @@ const AreYouSurePage = () => {
       <div>
         <p className="questionText">Let's try that again...</p>
         <p className="questionText">
-        Are you ready to meet the next React developer to join the <br />Hotel Engine team?
+          Are you ready to meet the next React developer to join the <br />
+          Hotel Engine team?
         </p>
       </div>
       <div style={{ display: "flex", flexDirection: "columm" }}>
-        <Link to={`/search`}>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-            className="greenButton shared dualslide"
-          >
-            <span>Accept</span>
-          </div>
-        </Link>
+        <GreenButton />
       </div>
     </div>
   );

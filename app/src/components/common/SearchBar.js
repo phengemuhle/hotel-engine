@@ -1,26 +1,29 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import ResultSortDropdown from "./ResultSortDropdown";
+import LanguageFilter from "./LanguageFilter";
+import NameInput from "./NameInput";
 
 const SearchBar = (props) => {
   const [searchBarInput, setSearchBarInput] = useState("");
   const [searchRepoResult, setSearchRepoResult] = useState("");
   const [perPage, setPerPage] = useState();
   const [pageNumber, setPageNumber] = useState();
-  const [resultSort, setResultSort] = useState();
+  const [resultSort, setResultSort] = useState("");
   const [selectedLanguage, setSelectedLanguage] = useState("");
 
   useEffect(() => {
     props.setSearchResults(searchRepoResult?.data?.items);
   }, [searchRepoResult]);
+
   const handleChange = (e) => {
     setSearchBarInput(e.target.value);
   };
 
-  const handleSort = (e) => {
-    setResultSort(e.target.value);
-  };
-  const handleLanguage = (e) => {
-    setSelectedLanguage(e.target.value);
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      handleSearch();
+    }
   };
 
   const handleSearch = async () => {
@@ -44,38 +47,55 @@ const SearchBar = (props) => {
     console.log(result);
   };
   return (
-    <div>
-      <input
-        type="text"
-        placeholder="Search..."
-        maxLength="100"
-        value={searchBarInput}
-        onChange={handleChange}
+    <div style={styles.serchBarCont}>
+      <NameInput
+        handleKeyPress={handleKeyPress}
+        searchBarInput={searchBarInput}
+        handleChange={handleChange}
       />
-      <select value={resultSort} onChange={handleSort}>
-        <option defaultValue="null">Best Match</option>
-        <option value="stars">Stars</option>
-        <option value="forks">Forks</option>
-        <option value="help-wanted-issues">Help wanted issues</option>
-        <option value="updated">Updated</option>
-      </select>
-      <select value={selectedLanguage} onChange={handleLanguage}>
-        <option defaultValue="">All</option>
-        <option value="C">C</option>
-        <option value="C++">C++</option>
-        <option value="C#">C#</option>
-        <option value="Go">Go</option>
-        <option value="Java">Java</option>
-        <option value="JavaScript">JavaScript</option>
-        <option value="PHP">PHP</option>
-        <option value="Python">Python</option>
-        <option value="Ruby">Ruby</option>
-        <option value="Scala">Scala</option>
-        <option value="TypeScript">TypeScript</option>
-      </select>
-      <button onClick={handleSearch}>Search</button>
+      <ResultSortDropdown
+        resultSort={resultSort}
+        setResultSort={setResultSort}
+      />
+      <LanguageFilter
+        selectedLanguage={selectedLanguage}
+        setSelectedLanguage={setSelectedLanguage}
+      />
+
+      <button style={styles.submitButton} type="submit" onClick={handleSearch}>
+        Search
+      </button>
     </div>
   );
+};
+
+const styles = {
+  serchBarCont: {
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-evenly",
+    backgroundColor: "white",
+  },
+  headerContainer: {
+    display: "flex",
+    flexDirection: "row",
+  },
+  submitButton: {
+    display: "flex",
+    alignSelf: "flex-end",
+    backgroundColor: "#4CAF50" /* Green */,
+    border: "none",
+    height: "60%",
+    color: "white",
+    padding: ".4rem 1.2rem",
+    textAlign: "center",
+    textDecoration: "none",
+    display: "inline-block",
+    fontSize: "1rem",
+    borderRadius: "1rem",
+    margin: ".1rem",
+  },
 };
 
 export default SearchBar;
