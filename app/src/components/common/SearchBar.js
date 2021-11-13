@@ -5,6 +5,7 @@ import LanguageFilter from "./LanguageFilter";
 import NameInput from "./NameInput";
 
 const SearchBar = (props) => {
+  const { setIsLoading } = props;
   const [searchBarInput, setSearchBarInput] = useState("");
   const [searchRepoResult, setSearchRepoResult] = useState("");
   const [perPage, setPerPage] = useState();
@@ -27,7 +28,7 @@ const SearchBar = (props) => {
   };
 
   const handleSearch = async () => {
-    console.log(searchBarInput);
+    setIsLoading(true);
     const result = await axios.get(
       "https://api.github.com/search/repositories",
       {
@@ -44,7 +45,7 @@ const SearchBar = (props) => {
       }
     );
     setSearchRepoResult(result);
-    console.log(result);
+    setIsLoading(false);
   };
   return (
     <div style={styles.serchBarCont}>

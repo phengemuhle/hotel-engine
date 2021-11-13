@@ -9,16 +9,6 @@ const SearchPage = () => {
   const [searchResults, setSearchResults] = useState([1]);
   useEffect(() => {}, [searchResults]);
 
-  const ResultRow = searchResults?.map((result) => {
-    return (
-      <span key={result.id}>
-        <p key={result.id}>
-          {result.name} + {result.id}
-        </p>
-      </span>
-    );
-  });
-
   return (
     <div style={styles.mainContainer}>
       <div style={{ ...styles.headerContainer }}>
@@ -26,13 +16,14 @@ const SearchPage = () => {
       </div>
       <DividerLine />
       <div style={{ width: "90%" }}>
-        <SearchBar setSearchResults={setSearchResults} />
+        <SearchBar
+          setIsLoading={setIsLoading}
+          setSearchResults={setSearchResults}
+        />
       </div>
       <div style={styles.resultContainer}>
-        <ResultDisplay />
+        <ResultDisplay searchResults={searchResults} isLoading={isLoading} />
       </div>
-      <div>{ResultRow}</div>
-      {isLoading ? <LoadingIndicator /> : null}
     </div>
   );
 };
