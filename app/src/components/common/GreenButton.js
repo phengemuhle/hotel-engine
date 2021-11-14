@@ -2,10 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "../Global.css";
 
-const GreenButton = () => {
+const GreenButton = ({ text = "Accept", link = `/search` }) => {
   return (
     <>
-      <Link to={`/search`}>
+      <Link to={link}>
         <div
           style={{
             display: "flex",
@@ -14,7 +14,7 @@ const GreenButton = () => {
           }}
           className="greenButton shared dualslide"
         >
-          <span>Accept</span>
+          <span>{text}</span>
         </div>
       </Link>
     </>

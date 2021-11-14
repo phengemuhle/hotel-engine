@@ -2,28 +2,41 @@ import React, { useEffect, useState } from "react";
 import LoadingIndicator from "../common/LoadingIndicator";
 import DividerLine from "../common/DividerLine";
 import SearchBar from "../common/SearchBar";
-import ResultDisplay from "../common/ResultDisplay";
+import ResultDisplay from "./ResultDisplay";
+import ErrorComp from "../common/ErrorComp";
 
 const SearchPage = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [searchResults, setSearchResults] = useState([1]);
-  useEffect(() => {}, [searchResults]);
+  const [searchResults, setSearchResults] = useState([]);
+  const [isError, setIsError] = useState({ error: false, trace: null });
+  useEffect(() => {}, [searchResults, isError]);
 
   return (
     <div style={styles.mainContainer}>
-      <div style={{ ...styles.headerContainer }}>
-        <h1>Welcome to my GitHub search</h1>
-      </div>
-      <DividerLine />
-      <div style={{ width: "90%" }}>
-        <SearchBar
-          setIsLoading={setIsLoading}
-          setSearchResults={setSearchResults}
-        />
-      </div>
-      <div style={styles.resultContainer}>
-        <ResultDisplay searchResults={searchResults} isLoading={isLoading} />
-      </div>
+      {isError.error ? (
+        <div style={styles.errorContainer}>
+          <ErrorComp
+            isError={isError}
+            onHide={() => setIsError({ error: false, trace: null })}
+          />
+        </div>
+      ) : null}
+      <>
+        <div style={{ ...styles.headerContainer }}>
+          <h1>Welcome to my GitHub search</h1>
+        </div>
+        <DividerLine />
+        <div style={{ width: "90%" }}>
+          <SearchBar
+            setIsLoading={setIsLoading}
+            setSearchResults={setSearchResults}
+            setIsError={setIsError}
+          />
+        </div>
+        <div style={styles.resultContainer}>
+          <ResultDisplay searchResults={searchResults} isLoading={isLoading} />
+        </div>
+      </>
     </div>
   );
 };
@@ -52,6 +65,16 @@ const styles = {
     height: "100%",
     width: "90%",
     margin: "2rem",
+  },
+  errorContainer: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "100%",
+    width: "100%",
+    zIndex: "1",
+    position: "absolute",
   },
 };
 

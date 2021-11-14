@@ -5,7 +5,7 @@ import LanguageFilter from "./LanguageFilter";
 import NameInput from "./NameInput";
 
 const SearchBar = (props) => {
-  const { setIsLoading } = props;
+  const { setIsLoading, setIsError } = props;
   const [searchBarInput, setSearchBarInput] = useState("");
   const [searchRepoResult, setSearchRepoResult] = useState("");
   const [perPage, setPerPage] = useState();
@@ -29,22 +29,26 @@ const SearchBar = (props) => {
 
   const handleSearch = async () => {
     setIsLoading(true);
-    const result = await axios.get(
-      "https://api.github.com/search/repositories",
-      {
-        params: {
-          q: searchBarInput + `language:${selectedLanguage}`,
-          per_page: perPage,
-          page: pageNumber,
-          sort: resultSort,
-          language: "rails",
-        },
-        headers: {
-          Accept: "application/vnd.github.v3+json",
-        },
-      }
-    );
-    setSearchRepoResult(result);
+    try {
+      const result = await axios.get(
+        "https://api.github.com/search/repositories",
+        {
+          params: {
+            q: searchBarInput + `language:${selectedLanguage}`,
+            per_page: perPage,
+            page: pageNumber,
+            sort: resultSort,
+            language: "rails",
+          },
+          headers: {
+            Accept: "application/vnd.github.v3+json",
+          },
+        }
+      );
+      setSearchRepoResult(result);
+    } catch (error) {
+      setIsError({ error: true, trace: error });
+    }
     setIsLoading(false);
   };
   return (
