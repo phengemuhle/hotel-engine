@@ -5,7 +5,8 @@ import SearchBar from "../common/SearchBar";
 import ResultDisplay from "./ResultDisplay";
 import ErrorComp from "../common/ErrorComp";
 
-const SearchPage = () => {
+const SearchPage = (props) => {
+  const { setSelectedRepo, setSelected } = props;
   const [isLoading, setIsLoading] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
   const [isError, setIsError] = useState({ error: false, trace: null });
@@ -34,7 +35,16 @@ const SearchPage = () => {
           />
         </div>
         <div style={styles.resultContainer}>
-          <ResultDisplay searchResults={searchResults} isLoading={isLoading} />
+          {isLoading ? (
+            <LoadingIndicator />
+          ) : (
+            <ResultDisplay
+              searchResults={searchResults}
+              isLoading={isLoading}
+              setSelectedRepo={setSelectedRepo}
+              setSelected={setSelected}
+            />
+          )}
         </div>
       </>
     </div>

@@ -5,7 +5,7 @@ import LanguageFilter from "./LanguageFilter";
 import NameInput from "./NameInput";
 
 const SearchBar = (props) => {
-  const { setIsLoading, setIsError } = props;
+  const { setIsLoading, setIsError, setSearchResults } = props;
   const [searchBarInput, setSearchBarInput] = useState("");
   const [searchRepoResult, setSearchRepoResult] = useState("");
   const [perPage, setPerPage] = useState();
@@ -14,8 +14,8 @@ const SearchBar = (props) => {
   const [selectedLanguage, setSelectedLanguage] = useState("");
 
   useEffect(() => {
-    props.setSearchResults(searchRepoResult?.data?.items);
-  }, [searchRepoResult]);
+    setSearchResults(searchRepoResult?.data?.items);
+  }, [setSearchResults, searchRepoResult]);
 
   const handleChange = (e) => {
     setSearchBarInput(e.target.value);
@@ -28,28 +28,30 @@ const SearchBar = (props) => {
   };
 
   const handleSearch = async () => {
-    setIsLoading(true);
-    try {
-      const result = await axios.get(
-        "https://api.github.com/search/repositories",
-        {
-          params: {
-            q: searchBarInput + `language:${selectedLanguage}`,
-            per_page: perPage,
-            page: pageNumber,
-            sort: resultSort,
-            language: "rails",
-          },
-          headers: {
-            Accept: "application/vnd.github.v3+json",
-          },
-        }
-      );
-      setSearchRepoResult(result);
-    } catch (error) {
-      setIsError({ error: true, trace: error });
+    if (searchBarInput.length >= 1) {
+      setIsLoading(true);
+      try {
+        const result = await axios.get(
+          "https://api.github.com/search/repositories",
+          {
+            params: {
+              q: searchBarInput + `language:${selectedLanguage}`,
+              per_page: perPage,
+              page: pageNumber,
+              sort: resultSort,
+              language: "rails",
+            },
+            headers: {
+              Accept: "application/vnd.github.v3+json",
+            },
+          }
+        );
+        setSearchRepoResult(result);
+      } catch (error) {
+        setIsError({ error: true, trace: error });
+      }
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
   return (
     <div style={styles.serchBarCont}>
@@ -96,7 +98,6 @@ const styles = {
     padding: ".4rem 1.2rem",
     textAlign: "center",
     textDecoration: "none",
-    display: "inline-block",
     fontSize: "1rem",
     borderRadius: "1rem",
     margin: ".1rem",

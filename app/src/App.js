@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import SearchPage from "./components/pages/SearchPage";
+import ChoicePage from "./components/pages/ChoicePage";
 import HomePage from "./components/pages/HomePage";
 import AreYouSurePage from "./components/pages/AreYouSurePage";
 
@@ -19,7 +19,7 @@ export default function App() {
     <Router>
       <div style={styles.appContainer}>
         <Routes>
-          <Route path="/search" element={<SearchPage />} />
+          <Route path="/search" element={<ChoicePage />} />
           <Route path="/areYouSure" element={<AreYouSurePage />} />
           <Route exact path="/" element={<HomePage />} />
         </Routes>

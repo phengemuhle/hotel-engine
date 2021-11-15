@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import GreenButton from "../common/GreenButton";
 import RedButton from "../common/RedButton";
 import "../Global.css";
