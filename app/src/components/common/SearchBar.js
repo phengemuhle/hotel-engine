@@ -8,7 +8,7 @@ const SearchBar = (props) => {
   const { setIsLoading, setIsError, setSearchResults } = props;
   const [searchBarInput, setSearchBarInput] = useState("");
   const [searchRepoResult, setSearchRepoResult] = useState("");
-  const [perPage, setPerPage] = useState();
+  const [perPage, setPerPage] = useState(100);
   const [pageNumber, setPageNumber] = useState();
   const [resultSort, setResultSort] = useState("");
   const [selectedLanguage, setSelectedLanguage] = useState("");
@@ -26,7 +26,6 @@ const SearchBar = (props) => {
       handleSearch();
     }
   };
-
   const handleSearch = async () => {
     if (searchBarInput.length >= 1) {
       setIsLoading(true);

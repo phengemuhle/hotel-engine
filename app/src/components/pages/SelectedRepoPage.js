@@ -3,7 +3,6 @@ import DividerLine from "../common/DividerLine";
 
 const SelectedRepoPage = (props) => {
   const { selectedRepo, setSelected } = props;
-  console.log(selectedRepo);
   const handelBack = () => {
     setSelected(false);
   };

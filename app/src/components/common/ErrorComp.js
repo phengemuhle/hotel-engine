@@ -2,7 +2,6 @@ import React from "react";
 import GreenOKButton from "./GreenOKButton";
 const ErrorComp = (props) => {
   const { isError, onHide } = props;
-  console.log(isError);
   return (
     <div style={styles.errorCont}>
       <div style={styles.messageCont}>
